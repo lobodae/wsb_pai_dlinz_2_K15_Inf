@@ -20,6 +20,7 @@
 
     // mimo błędu kod wykonuje się do końca
     // @ - tuszuje warning
+    // do wypchiecia
 
     // require "./scripts/lista.php";
     require "./scripts/lista.php";

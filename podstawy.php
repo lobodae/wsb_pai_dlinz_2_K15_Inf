@@ -25,7 +25,7 @@
 
     echo $data;
 
-    // nowdoc - nie rozpoznaje zmiennych i znaków specjalnych
+    // nowdoc - nie rozpoznaje zmiennych i znaków specjalnych do wypchniecia
     $data1 = <<< 'DATA'
         <hr>
         Imię: $firstName<br>

@@ -15,7 +15,7 @@
     // tablica asocjacyjna
     // $user = $result->fetch_assoc();
     // print_r($user);
-
+// cos tam
     // . - konkatenacja w php
     // echo "Imię i nazwisko: " . $user["firstName"] . " " . $user["lastName"] . "<br>";
 

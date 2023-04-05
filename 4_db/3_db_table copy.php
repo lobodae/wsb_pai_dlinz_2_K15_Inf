@@ -1,6 +1,3 @@
-<?php
-session_start ();
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,11 +22,7 @@ session_start ();
         </tr>
         
     USERTABLE;
-        if (isset($_SESSION["error"])){
-            echo $_SESSION["error"];
-            unset ($_SESSION["error"]);
-
-        }
+        
 
         require_once "../scripts/connect.php";
         $sql = "SELECT users.id, `users`.`firstName`, `users`.`lastName`, `users`.`dataUrodzenia`,
@@ -52,7 +45,6 @@ session_start ();
                     <td>$user[state]</td>
                     <td>$user[country]</td>
                     <td><a href = "../scripts/delete_user.php?deleteUserId=$user[id]">Usun</a></td>
-                    <td><a href = "../scripts/delete_user.php?updateUserId=$user[id]">Edytuj</a></td>
                     
                 </tr>
                 
@@ -89,50 +81,10 @@ session_start ();
 
     //echo " <a href= "../scripts/show_states.php">Pokaz tabele</a>";
     //zamiast state  id nazwa wojewodztwa
-    
-    
-        if(isset($_GET["addUserForm"])){
-            echo <<< ADDUSERFORM
-            <h4>Dodawanie uzytkownika</h4>
-            <form action="../scripts/adduser.php" method="post">
-                <input type="text" name="firstName" placeholder="Podaj imie" autofocus><br><br>
-                <input type="text" name="lastName" placeholder="Podaj nazwisko"><br><br>
-                <select name = "city">
-ADDUSERFORM;
 
-                $sql = "SELECT * FROM 'cities' ";
-                $result = $conn->query($sql);
-                while($city = $result->fetch_assoc()){
-                    echo "<option value=\"\">$city[id]\">$city[city]</option>";
-                }
-                echo <<< ADDUSERFORM
-                </select><br><br>
-                <input type="date" name="dataUrodzenia">Data urodzenia<br><br>
-                <input type="submit" value="Dodaj uzytkownika">
-                
-
-            </form>
-ADDUSERFORM;
-            //select option cities
-            //<input type="text" name="city" placeholder="podaj miasto" value="1"><br><br> nad <input date
-
-            
-
-        }
-       else
-        {
-            echo '<a href="./3_db_table.php?addUserForm=1">Dodaj uzytkownika</a>';
-        }
-        if(isset($_GET["updateUserId"])) //takie same ale ma miec value, by pobieral dane, i miasto ma byc ok
-        //update do bazy
-        {
-            echo <<< UPDATEUSERFORM
-            <h4>Aktualizacja uzytkownika</h4>
-            UPDATEUSERFORM;
-        }
         ?>
-    
-    
+
+    <a href="">Dodaj uzytkownika
 </body>
 
 </html>

@@ -42,9 +42,10 @@ USERSTABLE;
           <td><a href = "../scripts/delete_user.php?id=$user[id]>Usun</a></td>
         </tr>
 USERSTABLE;
-
+//to zle 
     }
     echo "</table>";
 	?>
 </body>
+
 </html>

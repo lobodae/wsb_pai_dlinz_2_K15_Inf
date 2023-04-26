@@ -2,14 +2,24 @@
 //print_r($_POST); stare
 session_start();//wszystkie pliki maja start sesja
 
+$error = 0;
 foreach($_POST as $key => $value){
    // echo "$key: $value<br>";
    if(empty($value)){
     //echo"$key<br>";
     $_SESSION["error"] = "Wypelnij pola";
-    echo "<script>history.back();</script>";//jak puste to wraca na glowna strone
-    exit();//zatrzymanie w tym momencie kodu
+      //echo "<script>history.back();</script>";//jak puste to wraca na glowna strone
+      //exit();//zatrzymanie w tym momencie kodu
+   $error++;
    }
+}
+
+if(!isset($_POST["term"]))
+{
+   $_SESSION["error"] = "Zatwierdz regulamin!";
+      //echo "<script>history.back();</script>";
+      //exit();
+      $error++;
 }
 
 require_once "./connect.php";

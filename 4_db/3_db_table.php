@@ -52,7 +52,7 @@ session_start ();
                     <td>$user[state]</td>
                     <td>$user[country]</td>
                     <td><a href = "../scripts/delete_user.php?deleteUserId=$user[id]">Usun</a></td>
-                    <td><a href = "../scripts/delete_user.php?updateUserId=$user[id]">Edytuj</a></td>
+                    <td><a href = "./3_db_table.php?updateUserId=$user[id]">Edytuj</a></td>
                     
                 </tr>
                 
@@ -100,22 +100,21 @@ session_start ();
                 <select name = "city">
 ADDUSERFORM;
 
-                $sql = "SELECT * FROM 'cities' ";
+                $sql = "SELECT * FROM cities ";
                 $result = $conn->query($sql);
                 while($city = $result->fetch_assoc()){
-                    echo "<option value=\"\">$city[id]\">$city[city]</option>";
+                    echo "<option value=$city[id]>$city[city]</option>";
                 }
                 echo <<< ADDUSERFORM
                 </select><br><br>
                 <input type="date" name="dataUrodzenia">Data urodzenia<br><br>
+                
+                <input type="checkbox" name="term" checked>Regulamin<br><br>
                 <input type="submit" value="Dodaj uzytkownika">
                 
 
             </form>
 ADDUSERFORM;
-            //select option cities
-            //<input type="text" name="city" placeholder="podaj miasto" value="1"><br><br> nad <input date
-
             
 
         }
@@ -123,13 +122,43 @@ ADDUSERFORM;
         {
             echo '<a href="./3_db_table.php?addUserForm=1">Dodaj uzytkownika</a>';
         }
-        if(isset($_GET["updateUserId"])) //takie same ale ma miec value, by pobieral dane, i miasto ma byc ok
-        //update do bazy
+
+
+        //aktualizowanie uzytkownika
+        if(isset($_GET["updateUserId"])) 
         {
-            echo <<< UPDATEUSERFORM
-            <h4>Aktualizacja uzytkownika</h4>
-            UPDATEUSERFORM;
-        }
+            $sql = "SELECT *FROM `users` where `id` = $_GET[updateUserId]";
+            $result = $conn->query($sql);
+            $updateUser = $result->fetch_assoc();
+                 echo <<< UPDATEUSERFORM
+                     <h4>Aktualizowanie uzytkownika</h4>
+                     <form action="../scripts/updateuser.php" method="post">
+                     <input type="text" name="firstName" placeholder="Podaj imie" value="$updateUser[firstName]" autofocus><br><br>
+                     <input type="text" name="lastName" placeholder="Podaj nazwisko" value="$updateUser[lastName]"><br><br>
+                     <select name = "city">
+                     UPDATEUSERFORM;
+     
+                     $sql = "SELECT * FROM cities";
+                     $result = $conn->query($sql);
+                     while($city = $result->fetch_assoc()){
+                         if($updateUser["city_id"] == $city["id"]){
+                            echo "<option selected value=$city[id]>$city[city]</option>";
+                        }
+                         else
+                         {
+                             echo "<option value=$city[id]>$city[city]</option>";
+                         }
+                     }
+                     echo <<< UPDATEUSERFORM
+                     </select><br><br>
+                     <input type="date" name="dataUrodzenia" value ="$updateUser[dataUrodzenia]">Data urodzenia<br><br>
+                     <input type="submit" value="Aktualizuj uzytkownika">
+                     
+     
+                 </form>
+                 UPDATEUSERFORM;
+                }
+        $conn->close();
         ?>
     
     
